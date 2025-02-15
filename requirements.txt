@@ -1,8 +1,8 @@
-python == 3.8.19
-numpy == 1.21.6
+python >= 3.8.19
+numpy >= 1.21.6
 scipy >= 1.0.0
-gym ==  0.21.0
-pyglet == 1.5.16
+gym >= 0.21.0
+pyglet >= 1.5.16
 pyyaml >= 5.1
 tqdm >= 4.11.0
 typing-extensions
