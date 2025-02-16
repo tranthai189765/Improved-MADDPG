@@ -2,6 +2,7 @@ import torch as T
 import torch.nn.functional as F
 from torch.autograd import Variable
 from agent import Agent
+import numpy as np
 
 class MADDPG:
     def __init__(self, actor_dims, critic_dims, n_agents, n_actions, 
@@ -43,11 +44,11 @@ class MADDPG:
 
         device = self.agents[0].actor.device
 
-        states = T.tensor(states, dtype=T.float).to(device)
-        actions = T.tensor(actions, dtype=T.float).to(device)
-        rewards = T.tensor(rewards, dtype=T.float).to(device)
-        states_ = T.tensor(states_, dtype=T.float).to(device)
-        dones = T.tensor(dones).to(device)
+        states = T.tensor(np.array(states), dtype=T.float).to(device)
+        actions = T.tensor(np.array(actions), dtype=T.float).to(device)
+        rewards = T.tensor(np.array(rewards), dtype=T.float).to(device)
+        states_ = T.tensor(np.array(states_), dtype=T.float).to(device)
+        dones = T.tensor(np.array(dones)).to(device)
 
         all_agents_new_actions = []
         all_agents_new_mu_actions = []
