@@ -34,8 +34,8 @@ if __name__ == '__main__':
     MAX_STEPS = 750
     total_steps = 0
     score_history = []
-    evaluate = False
-    best_score = 0
+    evaluate = True
+    best_score = -100000
 
     if evaluate:
         maddpg_agents.load_checkpoint()
@@ -76,4 +76,9 @@ if __name__ == '__main__':
                 maddpg_agents.save_checkpoint()
                 best_score = avg_score
         if i % PRINT_INTERVAL == 0 and i > 0:
-            print('episode', i, 'average score {:.1f}'.format(avg_score))
+            log_message = 'episode {} average score {:.1f}\n'.format(i, avg_score)
+            print(log_message.strip())  # Hiển thị trên console
+
+            # Ghi vào tệp
+            with open('tmp/maddpg/simple_adversary/result.txt', 'a') as f:
+                f.write(log_message)
