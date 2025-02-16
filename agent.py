@@ -1,5 +1,6 @@
 import torch as T
 from networks import ActorNetwork, CriticNetwork
+import numpy as np
 
 class Agent:
     def __init__(self, actor_dims, critic_dims, n_actions, n_agents, agent_idx, chkpt_dir,
@@ -25,7 +26,7 @@ class Agent:
         self.update_network_parameters(tau=1)
 
     def choose_action(self, observation):
-        state = T.tensor([observation], dtype=T.float).to(self.actor.device)
+        state = T.tensor(np.array([observation]), dtype=T.float).to(self.actor.device)
         actions = self.actor.forward(state)
         noise = T.rand(self.n_actions).to(self.actor.device)
         action = actions + noise
