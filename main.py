@@ -2,6 +2,7 @@ import numpy as np
 from maddpg import MADDPG
 from buffer import MultiAgentReplayBuffer
 from make_env import make_env
+import datetime
 
 def obs_list_to_state_vector(observation):
     state = np.array([])
@@ -34,7 +35,7 @@ if __name__ == '__main__':
     MAX_STEPS = 750
     total_steps = 0
     score_history = []
-    evaluate = True
+    evaluate = False
     best_score = -100000
 
     if evaluate:
@@ -76,9 +77,10 @@ if __name__ == '__main__':
                 maddpg_agents.save_checkpoint()
                 best_score = avg_score
         if i % PRINT_INTERVAL == 0 and i > 0:
-            log_message = 'episode {} average score {:.1f}\n'.format(i, avg_score)
+            current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            log_message = '{} -> episode {} average score {:.1f}\n'.format(current_time, i, avg_score)
             print(log_message.strip())  # Hiển thị trên console
 
-            # Ghi vào tệp
+            # Ghi vào file
             with open('tmp/maddpg/simple_adversary/result.txt', 'a') as f:
                 f.write(log_message)
